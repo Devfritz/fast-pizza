@@ -1,5 +1,11 @@
+import Search from "../features/order/Search";
+
 function Header() {
-  return <header>Header</header>;
+  return (
+    <header>
+      <Search />
+    </header>
+  );
 }
 
 export default Header;
