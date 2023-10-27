@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 
 // https://uibakery.io/regex-library/phone-number
@@ -35,6 +34,8 @@ const fakeCart = [
 function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
+  const navigation = useNavigation();
+  const isSubmiting = navigation.state === "submitting";
 
   return (
     <div>
@@ -72,7 +73,9 @@ function CreateOrder() {
         </div>
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
         <div>
-          <button>Order now</button>
+          <button disabled={isSubmiting}>
+            {isSubmiting ? "Placing... order" : "Order now"}
+          </button>
         </div>
       </Form>
     </div>
@@ -89,7 +92,6 @@ export async function action({ request }) {
     priority: data.priority === "on",
   };
   const newOrder = await createOrder(order);
-  console.log(newOrder);
 
   return redirect(`/order/${newOrder.id}`);
 }
