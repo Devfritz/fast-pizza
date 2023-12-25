@@ -7,11 +7,12 @@ const Button = ({ children, disabled, type, to, onClick }) => {
   const style = {
     primary: `${base} px-4 py-2`,
     small: `${base} px-2 py-2 text-sm`,
+    round: `${base} px-2.5 py-1 md:px-3.5 md:py-2.5 text-sm`,
   };
 
   if (to) {
     return (
-      <Link tp={to} className={style[type]}>
+      <Link to={to} className={style[type]}>
         {children}
       </Link>
     );
